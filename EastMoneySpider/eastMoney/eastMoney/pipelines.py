@@ -22,17 +22,19 @@ class EastmoneyPipeline(object):
 
     def process_item(self,item,spider):
         insert_sql = '''
-                      INSERT INTO MoneyFund(`fcode`,`name`,`value`,`annualized_rate_7`,`annualized_rate_14`,
-                      `annualized_rate_28`,`starting_amount`,`record_time`,`score`) VALUES ('%d','%s','%s','%s','%s','%s','%d','%s','%d')
-                     '''%(item['fcode'],item['name'],item['value'],
+                      INSERT INTO MoneyFund(`primary_key`,`fcode`,`name`,`value`,`annualized_rate_7`,`annualized_rate_14`,
+                      `annualized_rate_28`,`starting_amount`,`record_time`,`score`,`tendency`) VALUES ('%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s')
+                     '''%(item['primary_key'],item['fcode'],item['name'],item['value'],
                         item['annualized_rate_7'],item['annualized_rate_14'],item['annualized_rate_28'],
-                        item['starting_amount'],item['record_time'],item['score'])
+                        item['starting_amount'],item['record_time'],item['score'],item['tendency'])
         #print(insert_sql)
         try:
             self.db_cur.execute(insert_sql)
             self.client.commit()
-            print("获取%d最新信息成功"%(item['fcode']))
+            print("获取%s最新信息成功"%(item['fcode']))
         except Exception as e:
+            print('---')
+            print(insert_sql)
             print(e)
 
 

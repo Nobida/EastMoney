@@ -26,6 +26,7 @@ ROBOTSTXT_OBEY = False
 RANKING_DICT = {'优秀':3,'良好':2,'一般':1,'不佳':0}
 
 
+
 # Configure maximum concurrent requests performed by Scrapy (default: 16)
 #CONCURRENT_REQUESTS = 32
 

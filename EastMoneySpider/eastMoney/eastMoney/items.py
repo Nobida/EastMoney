@@ -11,6 +11,7 @@ from scrapy import Item, Field
 class EastmoneyItem(Item):
     # define the fields for your item here like:
     # name = scrapy.Field()
+    primary_key = Field()
     fcode = Field()
     name = Field()
     value = Field()
@@ -22,4 +23,5 @@ class EastmoneyItem(Item):
     rank_evaluate = Field()
     record_time = Field()
     score = Field()
+    tendency = Field()
 
