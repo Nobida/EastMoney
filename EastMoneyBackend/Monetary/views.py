@@ -2,6 +2,8 @@
 from __future__ import unicode_literals
 
 from django.shortcuts import render
+from django.utils import timezone
+from datetime import timedelta
 from .models import Monetary
 from .serializers import MonetarySerializer
 
@@ -30,9 +32,15 @@ class MonetaryViewSet(viewsets.ModelViewSet):
     serializer_class = MonetarySerializer
 
     def get_queryset(self):
-        total_monetary_fund = Monetary.objects.all()     
-        print("asdsa")  
-        return total_monetary_fund
+
+        recommend_confirm = self.request.query_params.get('recommend', None)
+        today_monetary_fund = Monetary.objects.raw(
+            "SELECT * FROM Monetary_monetary WHERE to_days(record_time) = to_days(now())")           
+        if recommend_confirm:
+            recommend_fund = Monetary.objects.filter(starting_amount=100).filter(score__gt=10).order_by('-value')[0:10]
+            return recommend_fund
+        else:    
+            return today_monetary_fund
 
     def create(self, request, *args, **kwargs):
         serializer = MonetarySerializer(data=request.data) 

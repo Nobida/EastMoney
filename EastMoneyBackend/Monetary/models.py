@@ -14,3 +14,4 @@ class Monetary(models.Model):
     score = models.IntegerField()
     record_time = models.DateTimeField(auto_now=True)
     tendency = models.CharField(max_length=32,default='')
+    starting_amount = models.CharField(max_length=8,default='')

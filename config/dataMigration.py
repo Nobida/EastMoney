@@ -31,9 +31,10 @@ def update_db(client,cursor):
             item['value'], 
             item['score'],
             item['record_time'],
-            item['tendency']
+            item['tendency'],
+            item['starting_amount'],
         )
-        insert_query = "INSERT INTO Monetary_monetary VALUES (%s,%s,%s,%s,%s,%s,%s)"
+        insert_query = "INSERT INTO Monetary_monetary VALUES (%s,%s,%s,%s,%s,%s,%s,%s)"
         try:
             cursor.execute(insert_query, values)
             client.commit()
